@@ -1,0 +1,4 @@
+openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem -config "C:/Program Files/OpenSSL-Win64/bin/cnf/openssl.cnf"
+
+Common Name (e.g., server FQDN or YOUR name): 127.0.0.1
+

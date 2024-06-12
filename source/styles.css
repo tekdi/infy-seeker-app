@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-hero {
+    /* background-image: url("assets/field-land-1.jpg"); */
+    background-image: url("assets/hero-1.jpg");
+}
+
+.shadow-1 {
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.2); /* Add shadow for visibility */
+}
+
+.navbar-hero {
+    color: white;
+    background-color: transparent;
+    box-shadow: 0 0px 6px 5px rgba(0, 0, 0, 0);
+}
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
