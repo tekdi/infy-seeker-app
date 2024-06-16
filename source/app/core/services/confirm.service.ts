@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environment/environment';
-import { DataService } from './data.service';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { environment } from "../../../environment/environment";
+import { DataService } from "./data.service";
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: "root",
 })
 export class ConfirmService {
     private apiUrl = environment.apiUrl;
@@ -17,15 +17,20 @@ export class ConfirmService {
         itemId: string,
         data: any
     ): Observable<any> {
+        let post: any = localStorage.getItem("post");
+        if (post) {
+            post = JSON.parse(post);
+        }
+
         return this.http.post(`${this.apiUrl}/confirm`, {
             context: {
-                domain: 'onest:learning-experiences',
-                action: 'confirm',
-                version: '1.1.0',
-                bap_id: 'kahani-bap.tekdinext.com',
-                bap_uri: 'https://kahani-bap.tekdinext.com/',
-                bpp_id: 'kahani-bpp.tekdinext.com',
-                bpp_uri: 'https://kahani-bpp.tekdinext.com/',
+                domain: "onest:learning-experiences",
+                action: "confirm",
+                version: "1.1.0",
+                bap_id: post?.bap_id || "lexp-bap.tekdinext.com",
+                bap_uri: post?.bap_uri || "https://lexp-bap.tekdinext.com/",
+                bpp_id: post?.bpp_id || "lexp-bpp.tekdinext.com",
+                bpp_uri: post?.bpp_uri || "https://lexp-bpp.tekdinext.com/",
                 transaction_id: this.dataService.getTransactionId(),
                 message_id: this.dataService.getUuid(),
                 timestamp: this.dataService.getTimestamp(),
@@ -35,16 +40,16 @@ export class ConfirmService {
                     provider: {
                         id: providerId,
                         descriptor: {
-                            name: 'kahani',
-                            short_desc: '',
+                            name: "kahani",
+                            short_desc: "",
                             images: [],
                         },
                         categories: [
                             {
-                                id: 'Course',
+                                id: "Course",
                                 descriptor: {
-                                    code: 'Course',
-                                    name: 'Course',
+                                    code: "Course",
+                                    name: "Course",
                                 },
                             },
                         ],
@@ -57,168 +62,168 @@ export class ConfirmService {
                                     count: 1,
                                 },
                             },
-                            parent_item_id: '',
+                            parent_item_id: "",
                             descriptor: {
-                                name: '',
-                                short_desc: '',
-                                long_desc: '',
+                                name: "",
+                                short_desc: "",
+                                long_desc: "",
                                 images: [],
                                 media: [],
                             },
                             creator: {
                                 descriptor: {
-                                    name: '',
+                                    name: "",
                                 },
                             },
                             price: {
-                                currency: 'INR',
-                                value: '0',
+                                currency: "INR",
+                                value: "0",
                             },
-                            category_ids: ['Course'],
-                            rating: 'NaN',
+                            category_ids: ["Course"],
+                            rating: "NaN",
                             rateable: true,
                             tags: [
                                 {
                                     display: true,
                                     descriptor: {
-                                        name: 'courseInfo',
-                                        code: 'courseInfo',
+                                        name: "courseInfo",
+                                        code: "courseInfo",
                                         list: [
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'sourceOrganisation',
-                                                    name: 'Source Organisation',
+                                                    code: "sourceOrganisation",
+                                                    name: "Source Organisation",
                                                 },
-                                                value: 'sourceOrganisation',
+                                                value: "sourceOrganisation",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'urlType',
-                                                    name: 'Url Type',
+                                                    code: "urlType",
+                                                    name: "Url Type",
                                                 },
-                                                value: 'Page',
+                                                value: "Page",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'competency',
-                                                    name: 'Competency',
+                                                    code: "competency",
+                                                    name: "Competency",
                                                 },
-                                                value: 'competency',
+                                                value: "competency",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'contentType',
-                                                    name: 'Content Type',
+                                                    code: "contentType",
+                                                    name: "Content Type",
                                                 },
-                                                value: 'Video',
+                                                value: "Video",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'domain',
-                                                    name: 'Domain',
+                                                    code: "domain",
+                                                    name: "Domain",
                                                 },
-                                                value: 'Career advancement',
+                                                value: "Career advancement",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'curriculargoal',
-                                                    name: 'Curricular Goal',
+                                                    code: "curriculargoal",
+                                                    name: "Curricular Goal",
                                                 },
-                                                value: 'curriculargoal',
+                                                value: "curriculargoal",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'language',
-                                                    name: 'Language',
+                                                    code: "language",
+                                                    name: "Language",
                                                 },
-                                                value: 'Hindi',
+                                                value: "Hindi",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'themes',
-                                                    name: 'Themes',
+                                                    code: "themes",
+                                                    name: "Themes",
                                                 },
-                                                value: 'themes',
+                                                value: "themes",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'minAge',
-                                                    name: 'minAge',
+                                                    code: "minAge",
+                                                    name: "minAge",
                                                 },
-                                                value: '10',
+                                                value: "10",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'maxAge',
-                                                    name: 'maxAge',
+                                                    code: "maxAge",
+                                                    name: "maxAge",
                                                 },
-                                                value: 'null',
+                                                value: "null",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'author',
-                                                    name: 'author',
+                                                    code: "author",
+                                                    name: "author",
                                                 },
-                                                value: 'Vowel',
+                                                value: "Vowel",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'curricularGoals',
-                                                    name: 'curricularGoals',
+                                                    code: "curricularGoals",
+                                                    name: "curricularGoals",
                                                 },
-                                                value: 'curricularGoals',
+                                                value: "curricularGoals",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'learningOutcomes',
-                                                    name: 'learningOutcomes',
+                                                    code: "learningOutcomes",
+                                                    name: "learningOutcomes",
                                                 },
-                                                value: 'learningOutcomes',
+                                                value: "learningOutcomes",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'persona',
-                                                    name: 'persona',
+                                                    code: "persona",
+                                                    name: "persona",
                                                 },
-                                                value: 'Learner',
+                                                value: "Learner",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'license',
-                                                    name: 'license',
+                                                    code: "license",
+                                                    name: "license",
                                                 },
-                                                value: 'Youtube',
+                                                value: "Youtube",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'createdon',
-                                                    name: 'createdon',
+                                                    code: "createdon",
+                                                    name: "createdon",
                                                 },
-                                                value: '',
+                                                value: "",
                                             },
                                             {
                                                 display: true,
                                                 descriptor: {
-                                                    code: 'lastupdatedon',
-                                                    name: 'lastupdatedon',
+                                                    code: "lastupdatedon",
+                                                    name: "lastupdatedon",
                                                 },
-                                                value: '',
+                                                value: "",
                                             },
                                         ],
                                     },
@@ -255,21 +260,21 @@ export class ConfirmService {
                                     age: String(data?.age),
                                     tags: [
                                         {
-                                            code: 'distributor-details',
+                                            code: "distributor-details",
                                             list: [
                                                 {
                                                     descriptor: {
-                                                        code: 'distributor-name',
-                                                        name: 'Distributor Name',
+                                                        code: "distributor-name",
+                                                        name: "Distributor Name",
                                                     },
-                                                    value: '',
+                                                    value: "",
                                                 },
                                                 {
                                                     descriptor: {
-                                                        code: 'agent-id',
-                                                        name: 'Agent Id',
+                                                        code: "agent-id",
+                                                        name: "Agent Id",
                                                     },
-                                                    value: '',
+                                                    value: "",
                                                 },
                                             ],
                                         },
@@ -282,7 +287,7 @@ export class ConfirmService {
                             },
                         },
                     ],
-                    type: 'DEFAULT',
+                    type: "DEFAULT",
                 },
             },
         });

@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environment/environment';
-import { DataService } from './data.service';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { environment } from "../../../environment/environment";
+import { DataService } from "./data.service";
 
 type SelectApiResponse = {
     context: {
@@ -14,7 +14,7 @@ type SelectApiResponse = {
 };
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: "root",
 })
 export class InitService {
     private apiUrl = environment.apiUrl;
@@ -26,15 +26,20 @@ export class InitService {
         itemId: string,
         data: any
     ): Observable<any> {
+        let post: any = localStorage.getItem("post");
+        if (post) {
+            post = JSON.parse(post);
+        }
+
         return this.http.post(`${this.apiUrl}/init`, {
             context: {
-                domain: 'onest:learning-experiences',
-                action: 'init',
-                version: '1.1.0',
-                bap_id: 'kahani-bap.tekdinext.com',
-                bap_uri: 'https://kahani-bap.tekdinext.com/',
-                bpp_id: 'kahani-bpp.tekdinext.com',
-                bpp_uri: 'https://kahani-bpp.tekdinext.com/',
+                domain: "onest:learning-experiences",
+                action: "init",
+                version: "1.1.0",
+                bap_id: post?.bap_id || "lexp-bap.tekdinext.com",
+                bap_uri: post?.bap_uri || "https://lexp-bap.tekdinext.com/",
+                bpp_id: post?.bpp_id || "lexp-bpp.tekdinext.com",
+                bpp_uri: post?.bpp_uri || "https://lexp-bpp.tekdinext.com/",
                 transaction_id: this.dataService.getTransactionId(),
                 message_id: this.dataService.getUuid(),
                 timestamp: this.dataService.getTimestamp(),
@@ -57,21 +62,21 @@ export class InitService {
                                     age: String(data.age),
                                     tags: [
                                         {
-                                            code: 'distributor-details',
+                                            code: "distributor-details",
                                             list: [
                                                 {
                                                     descriptor: {
-                                                        code: 'distributor-name',
-                                                        name: 'Distributor Name',
+                                                        code: "distributor-name",
+                                                        name: "Distributor Name",
                                                     },
-                                                    value: '',
+                                                    value: "",
                                                 },
                                                 {
                                                     descriptor: {
-                                                        code: 'agent-id',
-                                                        name: 'Agent Id',
+                                                        code: "agent-id",
+                                                        name: "Agent Id",
                                                     },
-                                                    value: '',
+                                                    value: "",
                                                 },
                                             ],
                                         },

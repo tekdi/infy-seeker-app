@@ -4,6 +4,7 @@
     <!-- Hero Section -->
     <section class="bg-hero h-[100vh] bg-no-repeat bg-cover bg-center">
         <!-- Hero Content -->
+        <!-- Search and Discover Learning Contents from network -->
         <div
             class="flex items-center justify-center lg:justify-start w-full h-full bg-[rgba(0,0,0,0.2)]"
         >
@@ -13,29 +14,31 @@
                 <h1
                     class="text-5xl font-semibold leading-[60px] text-center lg:text-left"
                 >
-                    Unlock Your Potential with <br />
+                    Search and Discover <br />
                     <div
                         class="inline-block bg-[rgba(0,0,0,0.1)] [transform:skew(15deg)] p-1"
                     >
                         <div
                             class="inline-block [transform:skew(-15deg)] italic"
                         >
-                            Open Access
+                            Learning Contents
                         </div>
                     </div>
                     <br />
-                    Courses and Tutorials
+                    From network
                 </h1>
                 <p class="max-w-[700px] mt-8 hidden lg:block">
-                    At <span class="italic">Seeker Academy</span>, we believe
-                    that education should be accessible to everyone. That's why
-                    we offer a wide array of free courses and tutorials,
-                    designed to help you gain new skills and knowledge at your
-                    own pace. From coding and digital marketing to creative
-                    writing and personal development, our expert-led content is
-                    here to support your journey. Start exploring our resources
-                    now and take the first step towards achieving your dreams —
-                    All without spending a dime!
+                    Welcome to <span class="italic">Seeker App</span> -- your
+                    gateway to a world of knowledge and opportunities! Whether
+                    you're a farmer, a student, or anyone eager to learn, Seeker
+                    App brings you a diverse range of learning materials,
+                    government schemes, and job opportunities all in one place.
+                    Dive into our extensive library of educational content, stay
+                    informed about the latest government initiatives, and
+                    explore job listings tailored to your needs. With Seeker
+                    App, you can search and discover learning content from our
+                    vast network, empowering you to achieve your goals and
+                    unlock your full potential.
                 </p>
                 <div
                     class="flex justify-start items-center gap-1 mt-8 border-[1px] border-white flex-row px-[5px] rounded-full w-[350px]"
@@ -148,12 +151,13 @@
             >
                 <a
                     class="block h-full overflow-hidden border-2 border-gray-200 rounded-lg border-opacity-60"
-                    [routerLink]="['/details']"
+                    (click)="navigateToDetails(post)"
+                >
+                    <!-- [routerLink]="['/details']"
                     [queryParams]="{
                         provider_id: post.provider_id,
                         item_id: post.item_id
-                    }"
-                >
+                    }" -->
                     <img
                         class="object-cover object-center w-full lg:h-48 md:h-36"
                         src="{{ post?.image_url || 'assets/couress.png' }}"

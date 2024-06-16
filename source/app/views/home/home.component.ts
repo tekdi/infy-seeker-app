@@ -3,23 +3,24 @@ import {
     ChangeDetectorRef,
     PLATFORM_ID,
     Inject,
-} from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
+} from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
+import { MatIconModule } from "@angular/material/icon";
 
-import { ClipTextPipe } from '../../shared/pipes/clip-text.pipe';
-import { RemoveHtmlPipe } from '../../shared/pipes/remove-html.pipe';
+import { ClipTextPipe } from "../../shared/pipes/clip-text.pipe";
+import { RemoveHtmlPipe } from "../../shared/pipes/remove-html.pipe";
 
-import { FooterComponent } from '../../shared/components/footer/footer.component';
-import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import { FooterComponent } from "../../shared/components/footer/footer.component";
+import { NavbarComponent } from "../../shared/components/navbar/navbar.component";
 
-import { SearchService } from '../../core/services/search.service';
-import { isPlatformBrowser } from '@angular/common';
+import { SearchService } from "../../core/services/search.service";
+import { isPlatformBrowser } from "@angular/common";
+import { Router } from "@angular/router";
 
 @Component({
-    selector: 'app-home',
+    selector: "app-home",
     standalone: true,
     imports: [
         NavbarComponent,
@@ -31,12 +32,12 @@ import { isPlatformBrowser } from '@angular/common';
         MatIconModule,
         RouterModule,
     ],
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css'],
+    templateUrl: "./home.component.html",
+    styleUrls: ["./home.component.css"],
 })
 export class HomeComponent {
     posts: any = [];
-    searchQuery: string = '';
+    searchQuery: string = "";
     searchQueryDelayed: any;
     isLoading: boolean = false;
     isSearched: boolean = false;
@@ -49,12 +50,13 @@ export class HomeComponent {
     recognition: any;
     isMicrophoneActive: boolean = false;
     waitingForConfirmation: boolean = false;
-    selectedLanguage = 'en-US'; // Default to English
+    selectedLanguage = "en-US"; // Default to English
 
     constructor(
         private searchService: SearchService,
         private cdr: ChangeDetectorRef,
-        @Inject(PLATFORM_ID) private platformId: Object
+        @Inject(PLATFORM_ID) private platformId: Object,
+        private router: Router
     ) {
         if (isPlatformBrowser(this.platformId)) {
             this.initSpeechRecognition();
@@ -69,7 +71,7 @@ export class HomeComponent {
     fetchPosts(searchQuery?: string) {
         this.isLoading = true;
         this.searchService.getPosts(searchQuery).subscribe((data) => {
-            this.posts = data?.data?.kahani_cache_dev;
+            this.posts = data?.data?.kahani_cache;
             this.isLoading = false;
             this.updatePagination();
         });
@@ -122,7 +124,7 @@ export class HomeComponent {
     // Clear search and reset posts
     handlerClear() {
         this.isSearched = false;
-        this.searchQuery = '';
+        this.searchQuery = "";
         this.fetchPosts();
     }
 
@@ -135,25 +137,25 @@ export class HomeComponent {
 
     // Handle Enter key press event for the search input
     handleKeyPress(event: KeyboardEvent) {
-        if (event.key === 'Enter') {
+        if (event.key === "Enter") {
             this.handlerSearch();
         }
     }
 
     // Scroll to the search result section smoothly
     toSearchResult() {
-        const searchResultElement = document.getElementById('search-result');
+        const searchResultElement = document.getElementById("search-result");
         if (searchResultElement) {
             searchResultElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-                inline: 'nearest',
+                behavior: "smooth",
+                block: "center",
+                inline: "nearest",
             });
         }
     }
 
     initSpeechRecognition() {
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
             const SpeechRecognition =
                 (window as any).SpeechRecognition ||
                 (window as any).webkitSpeechRecognition;
@@ -173,7 +175,7 @@ export class HomeComponent {
             };
 
             this.recognition.onerror = (event: any) => {
-                console.error('Voice recognition error:', event.error);
+                console.error("Voice recognition error:", event.error);
             };
         }
     }
@@ -188,28 +190,28 @@ export class HomeComponent {
 
     startVoiceRecognition() {
         if (isPlatformBrowser(this.platformId)) {
-            console.log('Starting voice recognition...');
+            console.log("Starting voice recognition...");
             this.recognition.start();
         }
     }
 
     activateMicrophone() {
         this.isMicrophoneActive = true;
-        console.log('Microphone activated');
+        console.log("Microphone activated");
     }
 
     deactivateMicrophone() {
         this.isMicrophoneActive = false;
         this.handlerSearch();
-        console.log('Microphone deactivated');
+        console.log("Microphone deactivated");
     }
 
     toggleMicrophone() {
         if (this.isMicrophoneActive) {
-            console.log('Deactivating microphone...');
+            console.log("Deactivating microphone...");
             this.deactivateMicrophone();
         } else {
-            console.log('Activating microphone...');
+            console.log("Activating microphone...");
             this.activateMicrophone();
             this.startVoiceRecognition();
         }
@@ -220,11 +222,11 @@ export class HomeComponent {
             navigator.mediaDevices
                 .getUserMedia({ video: false, audio: true })
                 .then((stream) => {
-                    console.log('Microphone access granted.');
+                    console.log("Microphone access granted.");
                     stream.getTracks().forEach((track) => track.stop());
 
                     alert(
-                        'Microphone access is required for speech recognition.'
+                        "Microphone access is required for speech recognition."
                     );
 
                     // window.localStream = stream; // A
@@ -232,14 +234,28 @@ export class HomeComponent {
                     // window.localAudio.autoplay = true; // C
                 })
                 .catch((error) => {
-                    console.error('Microphone access denied:', error);
+                    console.error("Microphone access denied:", error);
                     alert(
-                        'Microphone access is required for speech recognition.'
+                        "Microphone access is required for speech recognition."
                     );
                 });
         } else {
-            console.warn('getUserMedia not supported on this browser.');
-            alert('Your browser does not support microphone access.');
+            console.warn("getUserMedia not supported on this browser.");
+            alert("Your browser does not support microphone access.");
         }
+    }
+
+    navigateToDetails(post: any) {
+        if (!post) return;
+
+        let postString: string = JSON.stringify(post);
+        localStorage.setItem("post", postString);
+
+        this.router.navigate(["/details"], {
+            queryParams: {
+                provider_id: post.provider_id,
+                item_id: post.item_id,
+            },
+        });
     }
 }
