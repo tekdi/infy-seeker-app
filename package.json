@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open --host 0.0.0.0",
-    "build": "ng build --output-path docs --base-href /seeker-app/",
+    "build": "ng build --output-path docs --base-href /infy-seeker-app/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "pwa": "http-server -p 8080 -c-1 dist/seeker-app/browser",
